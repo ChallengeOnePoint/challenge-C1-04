@@ -2,7 +2,7 @@
   "name": "address-book",
   "version": "1.0.0",
   "description": "Fast app challenge",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
     "start": "node -r babel-register ./bin/start",
     "test": "node -r babel-register ./bin/test"

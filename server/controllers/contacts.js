@@ -8,8 +8,19 @@ const upload = multer();
 const router = express.Router();
 
 router.get('/contacts', (req, res) => {
-  Contact.find()
+  const projection = { deletedAt: { $exists: false }};
+
+  if (req.query.before) {
+    projection._id = { $lt: req.query.before };
+  } else if (req.query.after) {
+    projection._id = { $gt: req.query.after };
+  }
+
+  Contact
+    .find(projection)
     .exists('deletedAt', false)
+    .sort({ _id: -1 })
+    .limit(20)
     .exec()
     .then(contacts => res.json(contacts));
 });
@@ -61,7 +72,7 @@ router.delete('/contacts/:id', (req, res) => {
     }
 
     instance.deletedAt = new Date();
-    
+
     instance.save().then(() => res.status(204).send(''));
   });
 });

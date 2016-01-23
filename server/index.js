@@ -1,9 +1,13 @@
-import express from 'express';
-import mongoose from 'mongoose';
 import bluebird from 'bluebird';
 import bodyParser from 'body-parser';
+import express from 'express';
+import mongoose from 'mongoose';
+import multer from 'multer';
+
 import contacts from './controllers/contacts';
 
+mongoose.Promise = bluebird;
+//AIzaSyBEwzAmJk2iKrC-kS_xkFfaw7YbFYdeg2A
 const app = express();
 
 app.set('view engine', 'jade');

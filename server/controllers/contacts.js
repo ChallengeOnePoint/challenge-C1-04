@@ -25,7 +25,7 @@ router.get('/contacts', (req, res) => {
     .then(contacts => res.json(contacts));
 });
 
-router.post('/contactns', (req, res) => {
+router.post('/contacts', (req, res) => {
   let contact = new Contact(req.body);
 
   contact.save().then(contact =>

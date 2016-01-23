@@ -1,6 +1,7 @@
 import angular from 'angular';
 import directives from './directives';
 import states from './states';
+import resources from './resources';
 import 'angular-ui-router';
 
 angular
@@ -8,6 +9,7 @@ angular
     'ui.router',
     directives.name,
     states.name,
+    resources.name,
   ])
   .config(routes);
 

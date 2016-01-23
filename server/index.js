@@ -20,6 +20,15 @@ app.use(bodyParser.json({
 app.use('/api', contacts);
 app.use(express.static('public'));
 
+// uncaugh exceptions handler
+app.use(function logErrors(err, req, res, next) {
+  console.error(err.message, err.stack);
+
+  res.status(500).json({error: 'backend error'});
+  
+  next();
+});
+
 mongoose.Promise = bluebird;
 
 export default app;

@@ -50,7 +50,9 @@ router.post('/contacts/batch', upload.single('contactsFile'), (req, res) => {
     let model = new Contact(contact);
 
     return model.save();
-  })).then(() => res.status(202).send(''))
+  })).then(() => console.log('Import done batch.'));
+
+  res.status(202).send('');
 });
 
 router.put('/contacts/:id', (req, res) => {

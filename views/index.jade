@@ -1,6 +1,6 @@
 <!doctype html>
 
-html(ng-app="adress-book")
+html(ng-app="adressBook")
   head
       base(href="/")
       meta(charset="utf-8")
@@ -9,10 +9,8 @@ html(ng-app="adress-book")
       meta(name="description", content="")
       meta(name="viewport", content="width=device-width")
 
-      link(rel="stylesheet", href="css/main.css")
-
   body
     div(ui-view)
 
-    script(src="js/main.js")
-</html>
+    script(src="vendor.js")
+    script(src="application.js")

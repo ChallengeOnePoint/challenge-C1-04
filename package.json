@@ -4,7 +4,7 @@
   "description": "Fast app challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node -r babel-register ./bin/test"
   },
   "repository": {
     "type": "git",

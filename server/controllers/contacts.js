@@ -25,7 +25,7 @@ router.get('/contacts', (req, res) => {
     .then(contacts => res.json(contacts));
 });
 
-router.post('/contacts', (req, res) => {
+router.post('/contactns', (req, res) => {
   let contact = new Contact(req.body);
 
   contact.save().then(contact =>
@@ -72,6 +72,18 @@ router.delete('/contacts/:id', (req, res) => {
     }
 
     instance.deletedAt = new Date();
+
+    instance.save().then(() => res.status(204).send(''));
+  });
+});
+
+router.put('/contacts/:id/undo-delete', (req, res) => {
+  Contact.findOne({_id: req.params.id}).then(instance => {
+    if (!instance) {
+      return res.status(404).json({error: 'not found'});
+    }
+
+    instance.deletedAt = undefined;
 
     instance.save().then(() => res.status(204).send(''));
   });

@@ -9,7 +9,8 @@ const contactSchema = mongoose.Schema({
   city: String,
   postcode: String,
   firstname: String,
-  lastname: String
+  lastname: String,
+  deletedAt: Date
 });
 
 mongoose.model('Contact', contactSchema);

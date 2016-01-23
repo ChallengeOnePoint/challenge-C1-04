@@ -8,8 +8,10 @@ const upload = multer();
 const router = express.Router();
 
 router.get('/contacts', (req, res) => {
-  Contact.find({}).then(contacts =>
-    res.json(contacts));
+  Contact.find()
+    .exists('deletedAt', false)
+    .exec()
+    .then(contacts => res.json(contacts));
 });
 
 router.post('/contacts', (req, res) => {
@@ -49,6 +51,18 @@ router.get('/contacts/:id', (req, res) => {
     }
 
     res.json(instance.toObject());
+  });
+});
+
+router.delete('/contacts/:id', (req, res) => {
+  Contact.findOne({_id: req.params.id}).then(instance => {
+    if (!instance) {
+      return res.status(404).json({error: 'not found'});
+    }
+
+    instance.deletedAt = new Date();
+    
+    instance.save().then(() => res.status(204).send(''));
   });
 });
 

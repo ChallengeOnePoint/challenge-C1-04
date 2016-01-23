@@ -11,8 +11,13 @@ gulp.task('public', function (cb) {
   fs.mkdir('./public', function () { cb(); });
 });
 
-gulp.task('app', ['public'], function () {
+gulp.task('app', ['public', 'assets'], function () {
   return bundle(createBundler());
+});
+
+gulp.task('assets', function() {
+  gulp.src('./client/app.css')
+    .pipe(gulp.dest('./public/'));
 });
 
 gulp.task('vendor', ['vendor:js']);
@@ -30,7 +35,7 @@ gulp.task('vendor:js', ['public'], function () {
     .pipe(fs.createWriteStream('./public/vendor.js'));
 });
 
-gulp.task('watch', ['public', 'vendor'], function () {
+gulp.task('watch', ['public', 'vendor', 'assets'], function () {
   var bundler = createBundler({ cache: {}, packageCache: {} })
     .plugin('errorify')
     .plugin('watchify', { ignoreWatch: true });

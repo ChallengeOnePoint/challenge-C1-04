@@ -5,4 +5,4 @@ import server from '../server';
 
 mongoose.connect('mongodb://localhost/address-book');
 
-app.listen(3000, () => console.log('Listening: port 3000'));
+server.listen(3000, () => console.log('Listening: port 3000'));

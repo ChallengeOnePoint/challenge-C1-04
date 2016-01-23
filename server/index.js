@@ -8,11 +8,13 @@ const app = express();
 
 app.set('view engine', 'jade');
 
-app.get('/', (req, res) => res.render('index'));
-
 app.use(bodyParser.json());
 app.use('/api', contacts);
 app.use(express.static('public'));
+app.get('*', (req, res) => {
+  console.log('req.url', req.url);
+  res.render(req.url.slice(1) || 'index');
+});
 
 mongoose.Promise = bluebird;
 

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const contactSchema = Schema({
+const contactSchema = mongoose.Schema({
   number: {
     type: String,
     required: true
@@ -12,8 +12,8 @@ const contactSchema = Schema({
   lastname: String
 });
 
-contactSchema.virtual('number').get(() => this._id;);
+//contactSchema.virtual('number').get(() => this._id);
 
 mongoose.model('Contact', contactSchema);
 
-export default contactSchema;
+export default mongoose.model('Contact');

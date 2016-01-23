@@ -1,21 +1,25 @@
 import angular from 'angular';
 import directives from './directives';
+import states from './states';
 import 'angular-ui-router';
 
-/* @ngInject */
-angular.module('addressBook', [
-  directives.name,
-  'ui.router'
-])
-  /* @ngInject */
-  .config(($stateProvider, $urlRouterProvider) => {
-    $urlRouterProvider.otherwise("/");
+angular
+  .module('addressBook', [
+    'ui.router',
+    directives.name,
+    states.name,
+  ])
+  .config(routes);
 
-    $stateProvider
-      .state('state1', {
-        url: "/state1",
-        templateUrl: "home.html"
-      });
+const STATES = {
+  list: 'ListState',
+};
+
+/* @ngInject */
+function routes ($injector, $stateProvider, $urlRouterProvider) {
+  angular.forEach(STATES, (constant, name) => {
+    $stateProvider.state(name, $injector.get(constant));
   });
 
-
+  $urlRouterProvider.otherwise("/");
+}

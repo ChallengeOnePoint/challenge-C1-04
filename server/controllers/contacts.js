@@ -16,4 +16,17 @@ router.post('/contacts', (req, res) => {
     res.status(201).json(contact.toObject()));
 });
 
+router.put('/contacts/:id', (req, res) => {
+  Contact.findOne({_id: req.params.id}).then(instance => {
+    if (!instance) {
+      return res.status(404).json({error: 'not found'});
+    }
+
+    Object.keys(req.body).forEach(attrName =>
+      instance[attrName] = req.body[attrName]);
+
+    instance.save().then(() => res.status(204).send(''));
+  });
+});
+
 export default router;

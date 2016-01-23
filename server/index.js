@@ -11,7 +11,6 @@ mongoose.Promise = bluebird;
 const app = express();
 
 app.set('view engine', 'jade');
-app.get('/', (req, res) => res.render('index'));
 
 app.use(function requestLogger(req, res, next) {
   let rEnd = res.end;
@@ -36,8 +35,13 @@ app.use(bodyParser.json({
   type: 'application/json',
   limit: '50mb'
 }));
+
 app.use('/api', contacts);
 app.use(express.static('public'));
+app.get('*', (req, res) => {
+  console.log('req.url', req.url);
+  res.render(req.url.slice(1) || 'index');
+});
 
 // uncaugh exceptions handler
 app.use(function logErrors(err, req, res, next) {

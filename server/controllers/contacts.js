@@ -10,6 +10,18 @@ const router = express.Router();
 router.get('/contacts', (req, res) => {
   const projection = { deletedAt: { $exists: false }};
 
+  // "full text search"
+  if (req.query.query) {
+    let splittedQuery = req.query.query.split(' ');
+
+    projection.$or = [
+      {firstname: {$in: splittedQuery}},
+      {lastname: {$in: splittedQuery}},
+      {city: {$in: splittedQuery}}
+    ];
+  }
+  
+  // pagination
   if (req.query.before) {
     projection._id = { $lt: req.query.before };
   } else if (req.query.after) {

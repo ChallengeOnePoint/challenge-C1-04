@@ -12,8 +12,6 @@ const contactSchema = mongoose.Schema({
   lastname: String
 });
 
-//contactSchema.virtual('number').get(() => this._id);
-
 mongoose.model('Contact', contactSchema);
 
 export default mongoose.model('Contact');

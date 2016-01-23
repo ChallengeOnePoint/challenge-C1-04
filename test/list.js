@@ -49,7 +49,7 @@ describe('list contacts', () => {
 
   after(done => {
     bluebird
-      .map(contacts, contact => Contact.remove({ _id: contact._id }))
+      .map(contacts, contact => contact.remove())
       .asCallback(done);
   })
 
@@ -57,7 +57,7 @@ describe('list contacts', () => {
     agent
       .get('/api/contacts')
       .expect(res => {
-        expect(res.body[0].number).to.equal(8);
+        expect(res.body[0].number).to.equal('8');
         expect(res.body[0].firstname).to.equal('Martin');
         expect(res.body[0].city).to.equal('Testville');
       })

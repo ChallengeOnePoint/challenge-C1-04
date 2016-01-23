@@ -42,4 +42,14 @@ router.put('/contacts/:id', (req, res) => {
   });
 });
 
+router.get('/contacts/:id', (req, res) => {
+  Contact.findOne({_id: req.params.id}).then(instance => {
+    if (!instance) {
+      return res.status(404).json({error: 'not found'});
+    }
+
+    res.json(instance.toObject());
+  });
+});
+
 export default router;
